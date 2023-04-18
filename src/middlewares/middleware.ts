@@ -33,7 +33,7 @@ const checkExistingEmail = async (
 
   if (emailAlreadyExists.rows.length > 0) {
     return response.status(409).json({
-      error: "Email already exists.",
+      message: "Email already exists.",
     });
   } else return next();
 };
@@ -78,7 +78,7 @@ const checkExistingInfoFromDev = async (
 
   const queryString: string = `
   SELECT * FROM developer_infos
-  WHERE developerid = $1;
+  WHERE "developerId" = $1;
   `;
 
   const queryConfig: QueryConfig = {
@@ -89,7 +89,7 @@ const checkExistingInfoFromDev = async (
   const queryResult: QueryResult = await client.query(queryConfig);
 
   if (queryResult.rowCount > 0) {
-    return response.status(400).json({
+    return response.status(409).json({
       message: "Developer infos already exists.",
     });
   }

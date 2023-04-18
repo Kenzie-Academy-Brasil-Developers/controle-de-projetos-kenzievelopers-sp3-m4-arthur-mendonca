@@ -42,7 +42,7 @@ const showDevInfo = async (
   di."preferredOS" AS "developerInfoPreferredOS"  
   FROM developers AS d 
   FULL OUTER JOIN developer_infos AS di 
-  ON d.id = di.developerid
+  ON d.id = di."developerId"
   WHERE d.id = $1; 
   `;
 
@@ -116,7 +116,7 @@ const insertDevInfo = async (
 
   const queryString: string = `
   INSERT INTO  
-  developer_infos ("developerSince", "preferredOS", developerid)
+  developer_infos ("developerSince", "preferredOS", "developerId")
  	VALUES 
   ($1, $2, $3)
   RETURNING *;
